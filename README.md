@@ -1,2 +1,3 @@
-# clases-let0010
-material 2022-2
+# Clases-let0010
+
+Material 2022-2, clase del día 08-09-2022
