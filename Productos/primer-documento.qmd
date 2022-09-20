@@ -22,10 +22,10 @@ library(readr)
 library(dplyr)
 library(ggplot2)
 
-desarrollo <- read_csv("https://raw.githubusercontent.com/rivaquiroga/datos-de-ejemplo/main/cl_2000-2019.csv?token=GHSAT0AAAAAABUIJ2H5F6HUVPMMBPE7A65YYZDONZA")
+desarrollo <- read_csv("https://raw.githubusercontent.com/rivaquiroga/datos-de-ejemplo/main/cl_1960-2020.csv")
 ```
 
-Estos datos son sobre Chile para las variables poblacion, PIB per capita y esperanza de vida entre años 2000 y 2019
+Estos datos son sobre Chile para las variables poblacion, PIB per capita y esperanza de vida entre años `r min(desarrollo$anio)` y `r max(desarrollo$anio)`
 
 ```{r}
 ggplot(desarrollo, aes(x=anio,y=pib)) + geom_line(size = 2 , color = "#1fb791") +
@@ -37,7 +37,7 @@ Los datos del ultimo año son los siguientes:
 
 ```{r}
 desarrollo %>% 
-  filter(anio==2019) %>% 
+  filter(anio==2020) %>%    
   select("Esperanza de vida" = esperanza_vida,pib,"Población" = poblacion) %>% 
   knitr::kable()
 
