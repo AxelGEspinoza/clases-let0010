@@ -1,0 +1,48 @@
+---
+title: "Segundo ejemplo"
+format: 
+  html: 
+    code-fold: true
+    code-summary: "Código fuente"
+editor: visual
+lang: es
+params:
+  pais: "Chile"
+toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+Lo que haremos sera importar los datos con los que vamos a trabajar.
+
+```{r}
+#| message: false
+library(readr)
+library(ggplot2)
+library(dplyr)
+
+desarrollo <- read_csv(here::here("Datos/datos-desarollo.csv"))
+```
+
+## Esperanza de vida en el mundo
+
+La siguiente tabla muestra los datos sobre esperanza de vida segun continente para el año 2020:
+
+```{r}
+desarrollo %>% 
+  filter(anio==2020) %>% 
+  group_by(continente) %>% 
+  summarise(media = mean(esperanza_vida, na.rm = TRUE),min = min(esperanza_vida,na.rm = T), max = max(esperanza_vida,na.rm = T)) %>% knitr::kable()
+```
+
+## Datos sobre `r params$pais`
+
+En el caso de `r params$pais` la esperanza de vida a tenido la evolucion que se muestra en el siguiente grafico
+
+```{r}
+desarrollo %>% 
+  filter(pais == params$pais) %>% 
+  ggplot(aes(x = anio, y = esperanza_vida)) + geom_line(size = 2) + 
+  scale_y_continuous(limits = c(0,85)) + 
+  theme_minimal()
+```
