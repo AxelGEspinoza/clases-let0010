@@ -28,8 +28,8 @@ desarrollo <- read_csv("https://raw.githubusercontent.com/rivaquiroga/datos-de-e
 Estos datos son sobre Chile para las variables poblacion, PIB per capita y esperanza de vida entre años 2000 y 2019
 
 ```{r}
-ggplot(desarrollo, aes(x=anio,y=pib)) + geom_line() +
-  scale_y_continuous(limits = c(0,15000))
+ggplot(desarrollo, aes(x=anio,y=pib)) + geom_line(size = 2 , color = "#1fb791") +
+  scale_y_continuous(limits = c(0,15000)) + theme_minimal()
 
 ```
 
