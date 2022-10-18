@@ -1,0 +1,136 @@
+---
+title: "Tablas"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| echo: false
+#| message: false
+library(gt)
+library(gtsummary)
+library(datos)
+library(broom)
+library(dplyr)
+library(tidyr)
+```
+
+## Tablas con paquete gtsummary
+
+```{r}
+#| message: false
+theme_gtsummary_language(
+  language = "es",
+  decimal.mark = ",", 
+  big.mark = ""
+)
+```
+
+Tabla por defecto, solo con `tbl_summary`
+
+```{r}
+pinguinos %>% 
+  filter(isla=="Biscoe") %>% 
+  select(-c(isla,anio,especie)) %>% 
+  drop_na() %>% 
+  tbl_summary()
+```
+
+Ahora vamos a realizar algunas modificaciones
+
+```{r}
+pinguinos %>% 
+  filter(isla=="Biscoe") %>% 
+  select(-c(isla,anio,especie)) %>% 
+  drop_na() %>% 
+  tbl_summary(
+    statistic = list(
+      all_continuous() ~ "{mean}({sd})"
+    )
+  ) %>% 
+  modify_footnote(
+    update = list(
+      all_stat_cols() ~ "Media (desviacion estándar); Recuento(%)"
+    )
+  )
+```
+
+```{r}
+pinguinos %>% 
+  filter(isla=="Biscoe") %>% 
+  select(-c(isla,anio,especie)) %>% 
+  drop_na() %>% 
+  tbl_summary(
+    statistic = list(
+      all_continuous() ~ "{mean}({sd})"
+    ),by= "sexo",
+    label = list(
+      masa_corporal_g	~ "Masa Corporal (gr.)",
+      largo_aleta_mm ~ "Largo Aleta (mm)",
+      alto_pico_mm ~ "Alto Pico (mm)",
+      largo_pico_mm ~ "Largo Pico (mm)"
+    )
+  ) %>% 
+  modify_footnote(
+    update = list(
+      all_stat_cols() ~ "Media (desviacion estándar); Recuento(%)"
+    )
+  ) %>% 
+  add_p() %>% 
+  modify_spanning_header(
+    all_stat_cols() ~ "**Sexo**"
+  ) %>% 
+  modify_header(
+    update = list(
+      label ~ "**Variable**",
+      p.value ~ "**Valor p**"
+    )
+  )
+```
+
+## Tablas con gt
+
+El uso mas simple seria crear una tabla a partir de un dataframe
+
+```{r}
+filter(paises,anio==2007) %>% 
+  group_by(continente) %>% 
+  slice_max(poblacion,n=3) %>% 
+  gt() %>% 
+  tab_header(title = "Paises con mayor poblacion en el año 2007",subtitle = "Segun Continente") %>% 
+  tab_footnote(footnote = "Estos son los unicos paises dos paises de Oceania incluidos en esta base de datos",locations = cells_body(
+    columns = pais,rows = 13:14
+  )) %>% 
+  tab_source_note(source_note = "Fuente gapminder.org") %>% 
+  tab_spanner(label = "Variable de desarrollo medididas",columns = 4:6)
+```
+
+Otro ejemplo
+
+```{r}
+data.frame(variable=names(paises),
+           descripción=c(
+             "País (factor de 142 niveles",
+             "Continete en que se encuentra el país",
+             "Año de la observacion",
+             "Esperanza de Vida observada",
+             "Poblacion Observada",
+             "PIB observado"
+           )) %>% 
+  gt()
+```
+
+## BROOM para convertir los resultados de un modelo en un dataframe
+
+```{r}
+modelo <- lm(masa_corporal_g ~ largo_aleta_mm+largo_pico_mm,data = pinguinos)
+summary(modelo)
+```
+
+```{r}
+tidy(modelo) %>% gt()
+glance(modelo) %>% gt()
+augment(modelo) %>% gt()
+```
