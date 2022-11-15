@@ -1,7 +1,9 @@
 ---
 title: "Probando estilos"
 author: "Axel"
-format: revealjs
+format: 
+  revealjs:
+    theme: ejemplo-estilos.scss
 ---
 
 # Podemos poner titulo usando \#
@@ -18,3 +20,18 @@ Esto es un titulo
 
 Esto es parrafo
 
+##
+::: {.ultra-grande .centrado}
+Esto es un titulo
+:::
+
+## {.centrado background="black"}
+
+Otro texto [lalal.](olando)
+
+## {.fondo-azul}
+[un poco texto]{style="color: green;font-weight=bold;"}
+
+::: {.justificado}
+[Otro]{.texto-amarillo}
+:::

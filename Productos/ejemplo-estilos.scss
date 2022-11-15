@@ -27,6 +27,10 @@ $casi-blanco: #fdfcfb !default;
   color: $casi-blanco;
 }
 
+.reveal .fondo-gris {
+  background-color: #97a1aa;
+  color: $casi-blanco;
+}
 
 /* alineación texto*/
 
@@ -55,7 +59,7 @@ $casi-blanco: #fdfcfb !default;
 
 /* color fragmentos de texto */
 
-.texto-azul {
-  color: $azul;
+.texto-amarillo {
+  color: $amarillo;
   font-weight: bold;
 }
