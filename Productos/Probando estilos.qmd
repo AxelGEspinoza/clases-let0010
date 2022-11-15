@@ -1,0 +1,20 @@
+---
+title: "Probando estilos"
+author: "Axel"
+format: revealjs
+---
+
+# Podemos poner titulo usando \#
+
+Acá algo de texto.
+
+## Otro titulo
+
+Otro texto
+
+## {background-color="red"}
+
+Esto es un titulo
+
+Esto es parrafo
+

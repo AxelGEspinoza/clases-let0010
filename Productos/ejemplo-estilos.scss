@@ -1,0 +1,61 @@
+/*-- scss:defaults --*/
+
+// fuentes tipográficas
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+$font-family-sans-serif: 'Poppins', sans-serif;
+$font-family: 'Noto Sans Mono', monospace;
+
+
+// color 
+
+
+$azul: #4f78d6 !default;
+$celeste: #cad6f2 !default;
+$amarillo: #ffdd35 !default;
+$casi-blanco: #fdfcfb !default;
+
+
+/*-- scss:rules --*/
+
+/* combinaciones colores presentación */
+
+.reveal .fondo-azul {
+  background-color: $azul;
+  color: $casi-blanco;
+}
+
+
+/* alineación texto*/
+
+.centrado {
+  text-align: center;
+}
+
+.justificado {
+  text-align: justify;
+}
+
+
+/* tamaños fuentes */
+
+.ultra-grande {
+  font-size: 2.5em;
+}
+.grande {
+  font-size: 1.5em;
+}
+
+.pequenio {
+  font-size: 0.75em;
+}
+
+
+/* color fragmentos de texto */
+
+.texto-azul {
+  color: $azul;
+  font-weight: bold;
+}
