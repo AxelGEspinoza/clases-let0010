@@ -1,0 +1,174 @@
+---
+title: "Un informe muy relevante"
+author: "Nombre Apellido"
+format:
+  revealjs:
+    incremental: true
+    theme: moon
+lang: es
+---
+
+```{r}
+#| echo: false
+#| message: false
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+
+```{r}
+#| echo: false
+#| message: false
+#| cache: true
+desarrollo <- read_csv("https://raw.githubusercontent.com/rivaquiroga/clases-let0010/main/datos/datos-desarrollo.csv")
+
+```
+
+## Datos de desarrollo sobre Chile
+
+La base de datos incluye observaciones para las variables esperanza de vida, pib y población entre los años `r min(desarrollo$anio)` y `r max(desarrollo$anio)`.
+
+## Evolución del PIB per cápita
+
+El siguiente gráfico muestra la evolución en este periodo del pib per cápita en dólares
+
+```{r}
+
+filter(desarrollo, pais == "Chile") |> 
+  ggplot(aes(x = anio, y = pib)) +
+  geom_line() +
+  scale_y_continuous(limits = c(0,14000))
+```
+
+## Datos del último año
+
+Los datos disponibles para el año `r max(desarrollo$anio)` se presentan en la siguiente tabla
+
+```{r}
+
+  filter(desarrollo, anio == max(desarrollo$anio), pais == "Chile") |> 
+  select("esperanza de vida" = esperanza_vida, "pib per cápita" = pib, "población" = poblacion) |> 
+  gt::gt()
+
+```
+
+## Una lista de cosas
+
+Esto es solo una excusa para poner una lista.
+
+::: {.nonincremental}
+- Primer paso
+- Segundo paso
+- Tercer paso
+:::
+
+
+# Titulo de primer nivel
+
+## Titulo de segundo nivel
+
+### Titulo de tercer nivel
+
+---
+Hola, que tal? esta es una nueva diapo
+
+# Otra diapo 
+::: {.incremental}
+- List element A
+- List element B
+:::
+
+# Nueva diapo
+
+:::: {.columns}
+
+::: {.column width='20%'}
+Texto Izquierdo
+:::
+
+::: {.column width='80%'}
+```{r}
+
+  filter(desarrollo, anio == max(desarrollo$anio), pais == "Chile") |> 
+  select("esperanza de vida" = esperanza_vida, "pib per cápita" = pib, "población" = poblacion) |> 
+  gt::gt()
+
+```
+:::
+
+::::
+
+## agreguemos una nota
+:::{.callout-note collapse=false appearance='default' icon=true}
+## Optional caption (note)
+- Hide callout body with 'collapse=true'
+- Remove 'collapse' to prevent expandability
+- Set appearance to 'default', 'simple' or 'minimal'
+- Remove icon with 'icon=false'
+:::
+
+
+## agregamos una alerta
+:::{.callout-warning collapse=false appearance='default' icon=true}
+## Optional caption (warning)
+- Hide callout body with 'collapse=true'
+- Remove 'collapse' to prevent expandability
+- Set appearance to 'default', 'simple' or 'minimal'
+- Remove icon with 'icon=false'
+:::
+
+
+## agregamos notas 
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+#columnn lo pone como columna; slide pone el codigo y el grafico en pag distintas 
+#column-fragment hace que al apretar para pasar de slide salga el grafico
+filter(desarrollo, 
+       pais == "Chile") |> 
+  ggplot(aes(x = anio, 
+             y = pib)) +
+  geom_line() +
+  scale_y_continuous(
+    limits = c(0,14000)
+    )
+```
+
+::: {.notes}
+Mencionar cosas que se me pueden olvidar.
+Mencionar escalas de los ejes 
+:::
+
+
+## creamos tabset 
+::: {.panel-tabset}
+
+### Grafico
+
+```{r}
+filter(desarrollo, 
+       pais == "Chile") |> 
+  ggplot(aes(x = anio, 
+             y = pib)) +
+  geom_line() +
+  scale_y_continuous(
+    limits = c(0,14000)
+    )
+
+```
+
+### Datos
+
+```{r}
+filter(desarrollo, pais == "Chile") |> 
+  gt::gt()
+```
+
+### Modelo
+
+Fórmula
+
+:::
